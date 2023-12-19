@@ -24,8 +24,8 @@ services:
           - '${FORWARD_DB_PORT:-5432}:5432'
       environment:
           PGPASSWORD: 'secret'
-          POSTGRES_DB: 'parkme'
-          POSTGRES_USER: 'parkme'
+          POSTGRES_DB: 'restaurant'
+          POSTGRES_USER: 'restaurant'
           POSTGRES_PASSWORD: 'secret'
       volumes:
           - 'pgsql:/var/lib/postgresql/data'
