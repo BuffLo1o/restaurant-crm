@@ -1,0 +1,38 @@
+version: "3"
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+    volumes:
+        - '.:/var/www/html'
+    networks:
+      - internal
+  php:
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    networks:
+      - internal
+    volumes:
+        - '.:/var/www/html'
+  pgsql:
+      image: 'postgres:13'
+      ports:
+          - '${FORWARD_DB_PORT:-5432}:5432'
+      environment:
+          PGPASSWORD: 'secret'
+          POSTGRES_DB: 'parkme'
+          POSTGRES_USER: 'parkme'
+          POSTGRES_PASSWORD: 'secret'
+      volumes:
+          - 'pgsql:/var/lib/postgresql/data'
+      networks:
+          - internal
+volumes:
+    pgsql:
+networks:
+  internal:
+    driver: bridge
