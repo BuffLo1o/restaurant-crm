@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\IngredientMeasureEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,6 +12,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Ingredient extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $casts = [
+        'measure' => IngredientMeasureEnum::class,
+    ];
 
     public function file(): BelongsTo
     {
